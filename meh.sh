@@ -15,6 +15,7 @@ else
   # where the script itself is stored
   DIR="$( cd "$( dirname "$0" )" && pwd )"/photos
 fi
+DIR=~/Temp/Photos/meh
 
 if [ ! -d $DIR ]
 then
@@ -27,8 +28,9 @@ cd $DIR
 # taken
 sleep $(expr $RANDOM % 60)m
 
+/home/serge/bin/usbreset.sh 04f2:b217 >/dev/null
 # we cannot give a filename to mplayer, that's whe we rename afterwards
-fname=$(date +"%s").png
+fname=$(date +%Y%m%d%H%M).png
 
 mplayer -vo png -frames 1 tv:// > /dev/null 2> /dev/null
 
