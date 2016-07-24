@@ -28,10 +28,15 @@ cd $DIR
 # taken
 sleep $(expr $RANDOM % 60)m
 
-/home/serge/bin/usbreset.sh 04f2:b217 >/dev/null
 # we cannot give a filename to mplayer, that's whe we rename afterwards
 fname=$(date +%Y%m%d%H%M).png
 
 mplayer -vo png -frames 1 tv:// > /dev/null 2> /dev/null
 
-mv 00000001.png $fname
+hash=$(md5sum 00000001.png | cut -c -32)
+if [ "${hash}" = "dc82eec96018601a90d1e9787ea90058" ]
+then
+    rm 00000001.png
+else
+    mv 00000001.png $fname
+fi
